@@ -591,6 +591,32 @@
     }
 
     function renderQuestion() {
+       // ✅ ПОЛНАЯ ОЧИСТКА ПЕРЕД РЕНДЕРОМ
+  els.feedback.classList.add('hidden');
+  els.feedback.innerHTML = '';
+  
+  // Очистка всех выделений
+  document.querySelectorAll('.option').forEach(opt => {
+    opt.classList.remove('selected', 'correct', 'incorrect');
+    opt.style.pointerEvents = 'auto';
+    opt.style.background = '';
+    opt.style.borderColor = '';
+  });
+  
+  // Удаление всех кнопок
+  ['btn-confirm', 'btn-check-open', 'btn-check-matching'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.remove();
+  });
+  
+  // Сброс всех input
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    el.disabled = false;
+    el.value = '';
+    el.checked = false;
+    el.style.borderColor = '';
+    el.style.background = '';
+  });
   const q = state.test[state.currentIdx];
   
   // ✅ ОЧИСТКА ПРЕДЫДУЩЕГО СОСТОЯНИЯ (исправление бага #1)
